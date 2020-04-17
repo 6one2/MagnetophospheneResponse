@@ -9,3 +9,11 @@ def rms_peak_ratio(data):
     peak = np.max(np.abs(data))
     
     return rms, peak, rms/peak
+
+def fftspectrum(data, sampling_rate):
+    time = np.linspace(start=1/sampling_rate, stop=len(data)*1/sampling_rate, num=len(data))
+    freq = np.fft.fftfreq(time.shape[-1],d=1/sampling_rate)
+    sp = np.fft.fft(data)
+    
+    return freq[(freq>0) & (freq<(sampling_rate/2))], sp[(freq>0) & (freq<(sampling_rate/2))]
+    
